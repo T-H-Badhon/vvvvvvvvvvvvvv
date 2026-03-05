@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Contact Us — NovaTech",
-  description:
-    "Get in touch with NovaTech for your software development needs. Request a free consultation or quote.",
-};
+import { FormEvent, useState } from "react";
 
 const contactInfo = [
   {
@@ -41,6 +37,13 @@ const contactInfo = [
 ];
 
 export default function ContactPage() {
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
   return (
     <>
       {/* Hero */}
@@ -103,7 +106,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-bold text-gray-900 mb-6">
                   Send Us a Message
                 </h3>
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label
@@ -202,6 +205,13 @@ export default function ContactPage() {
                   >
                     Send Message
                   </button>
+
+                  {submitted && (
+                    <p className="text-green-600 font-medium">
+                      Thank you! Your message has been received. We&apos;ll get
+                      back to you shortly.
+                    </p>
+                  )}
                 </form>
               </div>
             </div>
